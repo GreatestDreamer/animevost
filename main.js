@@ -47,7 +47,7 @@ const apiUrl = 'https://api.animetop.info/v1/';
     async function showAnimePage(id) {
       location.hash = `#/anime/${id}`;
       const main = document.querySelector('main');
-      main.innerHTML = '<div class="space-y-4"><div id="player-container" class="aspect-video bg-black"></div><div id="episode-buttons" class="flex flex-wrap gap-2"></div><div class="text-sm text-gray-300">Описание сериала будет здесь...</div></div>';
+      main.innerHTML += '<div class="space-y-4" id="anime-page"><div id="player-container" class="aspect-video bg-black"></div><div id="episode-buttons" class="flex flex-wrap gap-2"></div><div class="text-sm text-gray-300">Описание сериала будет здесь...</div></div>';
 
       const res = await fetch(`${apiUrl}playlist`, {
         method: 'POST',
@@ -92,16 +92,19 @@ const apiUrl = 'https://api.animetop.info/v1/';
 
     function checkInitialRoute() {
 	  const list = document.getElementById('series-list');
-	  list.innerHTML = '';
+	  const animePage = document.getElementById('anime-page');
+	  if (list) list.innerHTML = '';
+	  if (animePage) animePage.remove();
 
       const hash = location.hash;
+	  console.log(hash);
 	  isSearchOpen = (hash == "#/search");
-	  console.log(isSearchOpen);
 	  if (hash != "#") page = 1;
 	  
       const match = hash.match(/#\/anime\/(\d+)/);
       if (match) showAnimePage(match[1]);
-      if (!isSearchOpen) {
+      if (!isSearchOpen && !match) {
+		  console.log("wtf")
         fetchSeries();
         window.addEventListener('scroll', handleScroll);
       }
