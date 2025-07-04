@@ -5,129 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Series Listing</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script defer>
-    const apiUrl = 'https://api.animetop.info/v1/';
-    let page = 1;
-    const quantity = 12;
-    let isLoading = false;
-
-    async function fetchSeriesList(data) {
-      const list = document.getElementById('series-list');
-      list.innerHTML = '';
-      //debugger
-	  data.forEach(item => {
-        const card = document.createElement('div');
-        card.className = "flex bg-gray-800 shadow rounded-lg overflow-hidden";
-        card.innerHTML = `
-          <img src="${item.urlImagePreview}" data-id="${item.id}" alt="Series Cover" class="w-44 object-cover cursor-pointer">
-          <div class="p-4 space-y-2">
-            <a href="#/anime/${item.id}" data-id="${item.id}" class="text-xl font-bold text-gray-100 hover:underline cursor-pointer">${item.title}</a>
-            <div class="flex flex-wrap gap-1">
-              ${item.genre.split(', ').map(g => `<span class='text-xs bg-gray-700 text-gray-200 px-2 py-1 rounded'>${g}</span>`).join('')}
-            </div>
-            <p class="text-sm text-gray-300 line-clamp-6">${item.description.replace(/<br\s*\/?>/g, '')}</p>
-          </div>
-        `;
-        if (list) list.appendChild(card);
-      });
-    }
-
-    async function fetchSeries() {
-      if (isLoading) return;
-      isLoading = true;
-      const res = await fetch(`${apiUrl}last?page=${page}&quantity=${quantity}`);
-      const json = await res.json();
-      fetchSeriesList(json.data);
-      isLoading = false;
-    }
-
-    async function searchSeries(name) {
-      const res = await fetch(`${apiUrl}search`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: `name=${encodeURIComponent(name)}`
-      });
-      const json = await res.json();
-      fetchSeriesList(json.data);
-    }
-
-    async function showAnimePage(id) {
-      location.hash = `#/anime/${id}`;
-      const main = document.querySelector('main');
-      main.innerHTML = '<div class="space-y-4"><div id="player-container" class="aspect-video bg-black"></div><div id="episode-buttons" class="flex flex-wrap gap-2"></div><div class="text-sm text-gray-300">Описание сериала будет здесь...</div></div>';
-
-      const res = await fetch(`${apiUrl}playlist`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: `id=${id}`
-      });
-      const data = await res.json();
-
-      const player = document.getElementById('player-container');
-      const episodeButtons = document.getElementById('episode-buttons');
-
-      if (data.length > 0) {
-        const video = document.createElement('video');
-        video.className = 'w-full h-full';
-        video.controls = true;
-        video.src = data[0].hd || data[0].std;
-        player.appendChild(video);
-
-        data.forEach(episode => {
-          const btn = document.createElement('button');
-          btn.className = 'px-3 py-1 bg-gray-700 hover:bg-gray-600 rounded text-sm';
-          btn.textContent = episode.name;
-          btn.addEventListener('click', () => {
-            video.src = episode.hd || episode.std;
-            video.play();
-          });
-          episodeButtons.appendChild(btn);
-        });
-      }
-    }
-
-    function handleScroll() {
-      if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 500) {
-        page++;
-        fetchSeries();
-      }
-    }
-
-    function checkInitialRoute() {
-      const hash = location.hash;
-      const match = hash.match(/#\/anime\/(\d+)/);
-      if (match) {
-        showAnimePage(match[1]);
-      } else {
-        fetchSeries();
-        window.addEventListener('scroll', handleScroll);
-      }
-    }
-
-    window.addEventListener('DOMContentLoaded', () => {
-      checkInitialRoute();
-      document.getElementById('search-form').addEventListener('submit', e => {
-        e.preventDefault();
-        const searchValue = e.target.elements.search.value.trim();
-        if (searchValue) searchSeries(searchValue);
-      });
-    });
-    window.addEventListener('hashchange', checkInitialRoute);
-  </script>
-  <style>
-    .line-clamp-6 {
-      display: -webkit-box;
-      -webkit-line-clamp: 6;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-  </style>
+  <script src="main.js"></script>
 </head>
 <body class="bg-gray-900 text-gray-100">
 
   <!-- Header -->
   <header class="flex items-center justify-between bg-gray-800 p-4 shadow">
-    <a href="/" class="flex items-center space-x-2 text-gray-200 hover:text-white">
+    <a href="#" class="flex items-center space-x-2 text-gray-200 hover:text-white">
       <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" d="M3 9.75L12 4l9 5.75M4.5 10.5v8.25h15V10.5" />
       </svg>
