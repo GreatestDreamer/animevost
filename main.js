@@ -2,7 +2,7 @@ const apiUrl = 'https://api.animetop.info/v1/';
     let page = 1;
     const quantity = 12;
     let isLoading = false;
-	var isSearchOpen = false;
+	var isMainPage = false;
 
     async function fetchSeriesList(data) {
       const list = document.getElementById('series-list');
@@ -80,7 +80,7 @@ const apiUrl = 'https://api.animetop.info/v1/';
     }
 
     function handleScroll() {
-      if (isSearchOpen) return;
+      if (!isMainPage) return;
       if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 100) {
         if (!isLoading) {
           page++;
@@ -98,18 +98,17 @@ const apiUrl = 'https://api.animetop.info/v1/';
 
       const hash = location.hash;
 	  console.log(hash);
-	  isSearchOpen = (hash == "#/search");
-	  if (hash != "#") page = 1;
+	  isMainPage = (hash.length < 2);
+	  if (!isMainPage) page = 1;
 	  
       const match = hash.match(/#\/anime\/(\d+)/);
       if (match) showAnimePage(match[1]);
-      if (!isSearchOpen && !match) {
-		  console.log("wtf")
+      if (isMainPage) {
         fetchSeries();
-        window.addEventListener('scroll', handleScroll);
       }
     }
-
+	
+    window.addEventListener('scroll', handleScroll);
     window.addEventListener('DOMContentLoaded', () => {
       checkInitialRoute();
       document.getElementById('search-form').addEventListener('submit', e => {
