@@ -9,9 +9,9 @@ const apiUrl = 'https://api.animetop.info/v1/';
       //debugger
 	  data.forEach(item => {
         const card = document.createElement('div');
-        card.className = "flex bg-gray-800 shadow rounded-lg overflow-hidden";
+        card.className = "md:flex bg-gray-800 shadow rounded-lg overflow-hidden";
         card.innerHTML = `
-          <img src="${item.urlImagePreview}" data-id="${item.id}" alt="Series Cover" class="h-56 rounded-br-2xl object-cover cursor-pointer">
+          <div class="xl:w-[200px] shrink-0 h-[300px]  overflow-hidden"> <img src="${item.urlImagePreview}" data-id="${item.id}" class="w-full h-full object-cover object-center"> </div>
           <div class="p-4 space-y-2">
             <a href="#/anime/${item.id}" data-id="${item.id}" class="text-xl font-bold text-gray-100 hover:underline cursor-pointer">${item.title}</a>
             <div class="flex flex-wrap gap-1">
