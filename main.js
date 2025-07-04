@@ -11,7 +11,7 @@ const apiUrl = 'https://api.animetop.info/v1/';
         const card = document.createElement('div');
         card.className = "md:flex bg-gray-800 shadow rounded-lg overflow-hidden";
         card.innerHTML = `
-          <a href="#/anime/${item.id}" class="xl:w-[200px] shrink-0 h-[300px] overflow-hidden"> <img src="${item.urlImagePreview}" data-id="${item.id}" class="w-full h-full object-cover object-center"> </a>
+          <div class="xl:w-[200px] shrink-0 h-[300px] overflow-hidden"> <a href="#/anime/${item.id}"><img src="${item.urlImagePreview}" data-id="${item.id}" class="w-full h-full object-cover object-center"> </a></div>
           <div class="p-4 space-y-2">
             <a href="#/anime/${item.id}" data-id="${item.id}" class="text-xl font-bold text-gray-100 hover:underline cursor-pointer">${item.title}</a>
             <div class="flex flex-wrap gap-1">
