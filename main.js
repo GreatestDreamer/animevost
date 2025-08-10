@@ -100,7 +100,7 @@ async function showAnimePage(id, currentEpisode) {
 
 function handleScroll() {
     if (!isMainPage) return;
-    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 100) {
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 800) {
         if (!isLoading) {
             page++;
             console.log(page);
@@ -126,10 +126,10 @@ function checkInitialRoute(e) {
 	const list = document.getElementById('series-list');
     const animePage = document.getElementById('anime-page');
     if (list) list.innerHTML = '';
+    if (animePage && !match) animePage.remove();
 
     isMainPage = (hash.length < 2);
     if (!isMainPage) page = 1;
-    if (animePage && isMainPage) animePage.remove();
 	
     if (isMainPage) {
         fetchSeries();
