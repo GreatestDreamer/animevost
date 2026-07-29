@@ -1,5 +1,5 @@
 const apiUrl = 'https://api.animetop.info/v1/';
-const cdnVideoUrl = 'http://video.animetop.info/720/';
+const cdnVideoUrl = 'https://fhd.trn.su/1080/';
 let page = 1;
 const quantity = 12;
 let isLoading = false;
