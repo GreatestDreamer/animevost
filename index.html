@@ -1,31 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Series Listing</title>
+  <meta name="color-scheme" content="dark">
+  <title>AnimeVost — каталог</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="main.js"></script>
+  <script src="main.js" defer></script>
 </head>
-<body class="bg-gray-900 text-gray-100">
-
-  <!-- Header -->
-  <header class="flex items-center justify-between bg-gray-800 p-4 shadow">
-    <a href="#" class="flex items-center space-x-2 text-gray-200 hover:text-white">
-      <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+<body class="min-h-screen bg-gray-900 text-gray-100">
+  <header class="sticky top-0 z-10 flex items-center justify-between gap-4 bg-gray-800/95 p-4 shadow backdrop-blur">
+    <a href="#/" class="flex shrink-0 items-center gap-2 text-gray-200 transition hover:text-white" aria-label="На главную">
+      <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
         <path stroke-linecap="round" stroke-linejoin="round" d="M3 9.75L12 4l9 5.75M4.5 10.5v8.25h15V10.5" />
       </svg>
       <span class="font-semibold">Главная</span>
     </a>
-    <form id="search-form">
-      <input type="text" name="search" placeholder="Поиск..." class=" p-2 bg-gray-700 text-gray-100 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500">
+
+    <form id="search-form" class="w-full max-w-sm" role="search">
+      <label class="sr-only" for="search-input">Поиск</label>
+      <input id="search-input" type="search" name="search" placeholder="Поиск..." autocomplete="off"
+        class="w-full rounded-lg border border-gray-600 bg-gray-700 p-2 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500">
     </form>
   </header>
 
-  <!-- Main content -->
-  <main class="p-6 space-y-6 max-w-7xl mx-auto">
-    <div id="series-list" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+  <main class="mx-auto max-w-7xl space-y-6 p-6">
+    <div id="app-status" class="hidden rounded-lg border border-gray-700 bg-gray-800 p-4 text-sm text-gray-300" role="status" aria-live="polite"></div>
+    <div id="app-view" class="space-y-6"></div>
   </main>
-
 </body>
 </html>
