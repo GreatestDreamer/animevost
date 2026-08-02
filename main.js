@@ -147,7 +147,7 @@
       const imageLink = html('a', 'block h-[300px] shrink-0 overflow-hidden md:h-auto md:w-[200px]');
       imageLink.href = `#/anime/${item.id}/1`;
 
-      const image = html('img', 'h-full w-full object-cover object-center transition duration-300 hover:scale-105');
+      const image = html('img', 'h-full w-full object-cover object-center');
       image.src = item.urlImagePreview || '';
       image.alt = item.title || 'Аниме';
       image.loading = 'lazy';
