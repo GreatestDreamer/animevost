@@ -3,7 +3,7 @@
 
   const CONFIG = Object.freeze({
     apiUrl: 'https://api.animetop.info/v1/',
-    cdnVideoUrl: 'https://fhd.trn.su/1080/',
+    cdnVideoUrl: 'https://miniru.trn.su/1080/',
     pageSize: 12,
     progressPrefix: 'anime_progress:'
   });
